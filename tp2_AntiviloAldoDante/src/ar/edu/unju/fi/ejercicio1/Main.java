@@ -39,7 +39,7 @@ public class Main {
 	                    mostrarProductos();
 	                    break;
 	                case 3:
-	                    //modificarProducto();
+	                    modificarProducto();
 	                    break;
 	                case 4:
 	                    System.out.println("Chaito!");
@@ -143,7 +143,10 @@ public class Main {
                 scanner.nextLine();
             }
 	    }
-	    
+	    /**
+	     * Metodo para mostrar productos, si no los hubiera
+	     * muestra un mensaje informando
+	     */
 	    private static void mostrarProductos() {
 	        if (listaProductos.isEmpty()) {
 	            System.out.println("\nNo hay productos para mostrar.");	            
@@ -152,5 +155,87 @@ public class Main {
 	        for (Producto producto : listaProductos) {
 	            System.out.println(producto);
 	        }
+	    }
+	    
+	    private static void modificarProducto() {
+	        if (listaProductos.isEmpty()) {
+	            System.out.println("\nNo hay productos para modificar.");
+	            return;
+	        }
+	        System.out.println("\nModificación de producto:");
+	        System.out.print("Ingrese el código del producto a modificar: ");
+	        
+	        int codigo = scanner.nextInt();
+	        scanner.nextLine();
+	        
+	       
+	        Producto productoAModificar = null;
+	        for (Producto producto : listaProductos) {
+	            if (producto.getCodigo() == codigo) {
+	                productoAModificar = producto;
+	                break;
+	            }
+	        }
+	        
+	        if (productoAModificar == null) {
+	            System.out.println("Producto no encontrado.");
+	            return;
+	        }
+	        
+	        System.out.println("\nProducto encontrado:");
+	        System.out.println(productoAModificar);
+	        System.out.println("\nSeleccione el atributo a modificar:\n");
+	        System.out.println("1 - Descripción");
+	        System.out.println("2 - Precio Unitario");
+	        System.out.println("3 - Origen de Fabricación");
+	        System.out.println("4 - Categoría");
+	        System.out.print("Ingrese su opción: ");
+	        int opcion = leerOpcion();
+	        
+	        switch (opcion) {
+	            case 1:
+	            	//scanner.nextLine();
+	                System.out.print("Ingrese la nueva descripción: ");
+	                String nuevaDescripcion = scanner.nextLine();
+	                productoAModificar.setDescripcion(nuevaDescripcion);
+	                System.out.println("Producto modificado exitosamente.");
+	                break;
+	            case 2:
+	                System.out.print("Ingrese el nuevo precio unitario: ");
+	                double nuevoPrecioUnitario = scanner.nextDouble();
+	                productoAModificar.setPrecioUn(nuevoPrecioUnitario);
+	                System.out.println("Producto modificado exitosamente.");
+	                break;
+	            case 3:
+	                System.out.println("Escoja el nuevo origen de fabricación:");
+	                
+	                int i=0;
+	    	        for (OrigenFabricacion origenes : OrigenFabricacion.values()) {
+	    	        	i++;
+	    	        	System.out.println(i+" - "+origenes);
+	    	        }  
+	                
+	                int opcionOrigen = leerOpcion();
+	                Producto.OrigenFabricacion nuevoOrigenFabricacion = Producto.OrigenFabricacion.values()[opcionOrigen - 1];
+	                productoAModificar.setOrigenF(nuevoOrigenFabricacion);
+	                System.out.println("Producto modificado exitosamente.");
+	                break;
+	            case 4:
+	                System.out.println("Escoja la nueva categoría:");
+	                
+	                int k=0;
+	    	        for (Categoria origenes : Categoria.values()) {
+	    	        	k++;
+	    	        	System.out.println(k+" - "+origenes);
+	    	        }
+	                
+	                int opcionCategoria = leerOpcion();
+	                Producto.Categoria nuevaCategoria = Producto.Categoria.values()[opcionCategoria - 1];
+	                productoAModificar.setCategoria(nuevaCategoria);
+	                System.out.println("Producto modificado exitosamente.");
+	                break;
+	            default:
+	                System.out.println("\nOpción no válida\n");
+	        }                
 	    }
 }
