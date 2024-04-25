@@ -118,8 +118,7 @@ public class Main {
 	        for (OrigenFabricacion origenes : OrigenFabricacion.values()) {
 	        	i++;
 	        	System.out.println(i+" - "+origenes);
-	        }
-	        //mostrarOpcionesEnum(Producto.OrigenFabricacion.values());
+	        }        
 	        
 	        int opcionOrigen = opcionEnum();
 	        Producto.OrigenFabricacion origen = Producto.OrigenFabricacion.values()[opcionOrigen - 1];
@@ -130,10 +129,7 @@ public class Main {
 	        for (Categoria origenes : Categoria.values()) {
 	        	k++;
 	        	System.out.println(k+" - "+origenes);
-	        }
-	        
-	        //mostrarOpcionesEnum(Producto.categoria.values());
-	        
+	        }	              
 	        
 	        int opcionCategoria = opcionEnum();
 	        Producto.Categoria categoria = Producto.Categoria.values()[opcionCategoria - 1];
@@ -146,5 +142,15 @@ public class Main {
                 System.err.println("\nTipo de dato no valido");
                 scanner.nextLine();
             }
-	    }    	      
+	    }
+	    
+	    private static void mostrarProductos() {
+	        if (listaProductos.isEmpty()) {
+	            System.out.println("\nNo hay productos para mostrar.");	            
+	        }
+	        System.out.println("\nListado de productos:");
+	        for (Producto producto : listaProductos) {
+	            System.out.println(producto);
+	        }
+	    }
 }
