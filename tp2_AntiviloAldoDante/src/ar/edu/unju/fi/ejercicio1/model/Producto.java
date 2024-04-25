@@ -4,20 +4,20 @@ public class Producto {
 			
 	private int codigo;
     private String descripcion;
-    private double precioUn;
-    private origenFabricacion origenF;
-    private categoria categoria;
+    private Double precioUn;
+    private OrigenFabricacion origenF;
+    private Categoria categoria;
     
-	public enum origenFabricacion{
+	public enum OrigenFabricacion{
 		ARGENTINA, CHINA, BRASIL, URUGUAY
 	}
 	
-	public enum categoria {
+	public enum Categoria {
 		TELEFONIA, INFORMATICA, ELECTROHOGAR, HERRAMIENTAS
 	}
 
-	public Producto(int codigo, String descripcion, double precioUn, origenFabricacion origenF,
-			ar.edu.unju.fi.ejercicio1.model.Producto.categoria categoria) {
+	public Producto(int codigo, String descripcion, Double precioUn, OrigenFabricacion origenF,
+			Categoria categoria) {
 		super();
 		this.codigo = codigo;
 		this.descripcion = descripcion;
@@ -50,19 +50,19 @@ public class Producto {
 		this.precioUn = precioUn;
 	}
 
-	public origenFabricacion getOrigenF() {
+	public OrigenFabricacion getOrigenF() {
 		return origenF;
 	}
 
-	public void setOrigenF(origenFabricacion origenF) {
+	public void setOrigenF(OrigenFabricacion origenF) {
 		this.origenF = origenF;
 	}
 
-	public categoria getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(categoria categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
