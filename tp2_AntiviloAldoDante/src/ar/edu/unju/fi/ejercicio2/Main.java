@@ -32,7 +32,7 @@ public class Main {
 					
 					case 1: crearEfe();
 						break;
-					case 2: // mostrarEfe
+					case 2: mostrarEfe();
 						break;
 					case 3: // eliminarEfe
 						break;
@@ -61,7 +61,7 @@ public class Main {
 		
 		
 	private static void crearEfe () {
-		
+		try {
 		System.out.println("\nIngrese Codigo");
 		int codigo = sc.nextInt();
 		
@@ -86,7 +86,22 @@ public class Main {
 		System.out.println("\nEfemerides Creada");
 		System.out.println(efe);
 		
+		} catch (InputMismatchException e) {
+			System.err.println("Tipo de dato incorrecto");
+			sc.nextLine();
+		}
 	} 
 	
+	private static void mostrarEfe() {
+		
+		if (efemerides.isEmpty()) {
+			System.out.println("\nLista Vacia");
+		} else {
+			System.out.println("\nEfemerides\n");
+			for (Efemeride efemeridesLista : efemerides) {
+				System.out.println(efemeridesLista);
+				}
+		}
+	}
 	
 }
