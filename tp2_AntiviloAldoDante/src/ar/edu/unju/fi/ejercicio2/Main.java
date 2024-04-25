@@ -2,6 +2,7 @@ package ar.edu.unju.fi.ejercicio2;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import ar.edu.unju.fi.ejercicio1.constantes.Mes;
@@ -9,6 +10,10 @@ import ar.edu.unju.fi.ejercicio2.model.Efemeride;
 
 public class Main {
 	
+	/**
+	 * Declaro scanner y efemerides fuera del metodo main
+	 * para que puedan ser accedidas desde cualquier metodo
+	 */
 	
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList <Efemeride> efemerides = new ArrayList <>();
@@ -34,9 +39,11 @@ public class Main {
 						break;
 					case 2: mostrarEfe();
 						break;
-					case 3: // eliminarEfe
+					case 3: eliminarEfe();
 						break;
-					case 4: // modificarEfe
+					case 4: modificarEfe();
+						break;
+					case 5: System.out.println("\nChaito!...");
 						break;
 					default: System.err.println("\nSeleccione una opcion del menu");
 			}
@@ -46,7 +53,13 @@ public class Main {
 		} while (opcion!=5);		
 	}
 	
-	
+	/**
+	 * metodo para leer la opcion del switch con control
+	 * de excepciones
+	 * @return retorna cero para ingresar por el default
+	 * del switch en caso de ingresar un caracter distinto
+	 * a un nro 
+	 */
 	private static int leerOpcion() {
         try {
             return sc.nextInt();
@@ -58,7 +71,15 @@ public class Main {
 	
 	
 		
-		
+	/**
+	 * metodo para crear una efemerides
+	 * con ingreso de datos por usuario
+	 * se realiza un control del rango de
+	 * meses luego se le resta 1 a la variable
+	 * que capturo el dato para que coincida con 
+	 * las posiciones de los enumerados que comienzan 
+	 * en cero
+	 */
 		
 	private static void crearEfe () {
 		try {
@@ -104,4 +125,87 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar efemerides primero controla
+	 * si la lista esta vacia luego se ingresa el codigo
+	 * compara si existe para borrarlo o avisar al usuario
+	 * que dicho codigo no existe
+	 */
+	private static void eliminarEfe() {
+	    if (efemerides.isEmpty()) {
+	        System.out.println("Efemerides vacía");
+	    } else {
+	        System.out.println("Ingrese el codigo a eliminar:");
+	        int eliminar = sc.nextInt();
+
+	        Iterator<Efemeride> iterator = efemerides.iterator();
+	        boolean encontrar = false;
+	        while (iterator.hasNext()) {
+	            Efemeride elemento = iterator.next();
+	            if (elemento.getCodigo() == eliminar) {
+	                iterator.remove();
+	                System.out.println("\nEfemeride eliminada");
+	                encontrar = true;
+	                break; 
+	            }
+	        }
+	        if (!encontrar) {
+	            System.out.println("\nNo existe el codigo");
+	        }
+	    }
+	}
+	
+	/**
+	 * Metodo para modificar efemerides realiza
+	 *  el control de que la lista no este vacia
+	 *  luego se ingresa el codigo, compara si el 
+	 *  codigo existe para luego pedir el re ingreso
+	 *  de los datos
+	 */
+	private static void modificarEfe() {
+	    try {
+	        if (efemerides.isEmpty()) {
+	            System.out.println("Efemerides vacía");
+	        } else {
+	            System.out.println("Ingrese el código a modificar:");
+	            int modificar = sc.nextInt();
+	            boolean encontrar = false;
+
+	            Iterator<Efemeride> iterator = efemerides.iterator();
+	            while (iterator.hasNext()) {
+	                Efemeride elemento = iterator.next();
+	                if (elemento.getCodigo() == modificar) {
+	                    encontrar = true;
+	                    System.out.println("\nIngrese nuevo código:");
+	                    int nuevoCod = sc.nextInt();
+	                    System.out.println("Ingrese nuevo mes (número del 1 al 12):");
+	                    int nuevoMes = sc.nextInt();
+	                    while (nuevoMes < 1 || nuevoMes > 12) {
+	                        System.out.println("Número de mes incorrecto. Intente nuevamente:");
+	                        nuevoMes = sc.nextInt();
+	                    }
+	                    Mes mes = Mes.values()[nuevoMes - 1];
+	                    System.out.println("\nIngrese el día:");
+	                    int nuevoDia = sc.nextInt();
+	                    sc.nextLine();
+	                    System.out.println("\nIngrese el detalle:");
+	                    String nuevoDetalle = sc.nextLine();
+
+	                    elemento.setCodigo(nuevoCod);
+	                    elemento.setMes(mes);
+	                    elemento.setDia(nuevoDia);
+	                    elemento.setDetalle(nuevoDetalle);
+	                    System.out.println("\nModificado correctamente.");
+	                    break; 
+	                }
+	            }
+	            if (!encontrar) {
+	                System.out.println("Código no encontrado.");
+	            }
+	        }
+	    } catch (InputMismatchException e) {
+	        System.err.println("Tipo de dato incorrecto.");
+	        sc.nextLine();
+	    }
+	}
 }
