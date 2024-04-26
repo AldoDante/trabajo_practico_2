@@ -101,7 +101,7 @@ public class Main {
 	    private static void crearProducto() {
 	    	
 	    	try {
-	        System.out.println("\nCreando nuevo producto:");
+	        System.out.println("\nCreando nuevo producto:\n");
 	        System.out.print("Ingrese el código: ");
 	        int codigo = scanner.nextInt();
 	        scanner.nextLine();
@@ -138,10 +138,11 @@ public class Main {
 	        listaProductos.add(producto);     
 	       
 	        System.out.println("Producto creado exitosamente.");
-	    	} catch (Exception e) {
-                System.err.println("\nTipo de dato no valido");
-                scanner.nextLine();
-            }
+	        
+	    	}  catch (InputMismatchException e) {
+	            System.err.println("\nError en el tipo de dato, Ingrese un numero para el codigo o el precio");
+	            scanner.nextLine(); 
+	        } 
 	    }
 	    /**
 	     * Metodo para mostrar productos, si no los hubiera
