@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import ar.edu.unju.fi.ejercicio4.constantes.Posicion;
@@ -31,10 +32,10 @@ public class Main {
 	                	mostrar();
 	                    break;
 	                case 3:
-	                    //modificar();
+	                    modificar();
 	                    break;
 	                case 4:
-	                    //eliminar();
+	                    eliminar();
 	                    break;
 	                case 5:
 	                    System.out.println("Chaito!...");
@@ -100,6 +101,21 @@ public class Main {
         } while (true);
     }
     
+    /**
+     * Metodo para mostrar el menu de enumerados
+     */
+    private static void mostrarPosicion() {
+        System.out.println("\nPosicion\n");
+        int i = 0;
+        for (Posicion posiciones : Posicion.values()) {
+            i++;
+            System.out.println(i + " - " + posiciones);
+        }
+    }
+    
+    /**
+     *     
+     */
     private static void alta () {
     			System.out.println("\nAlta de Jugador");
 				System.out.println("\nNombre");
@@ -129,15 +145,8 @@ public class Main {
 					double estatura = sc.nextDouble();
 					System.out.print("\nPeso: ");
 					double peso = sc.nextDouble();
-					sc.nextLine(); 
-					System.out.print("\nPosición\n"); 
-					      
-					int i=0;
-					for (Posicion posiciones: Posicion.values()) {
-						i++;
-						System.out.println(i+" - "+posiciones);
-					}        
-					
+					sc.nextLine();					
+					mostrarPosicion();					       
 					int opcionPosicion = opcionEnum();
 					Posicion posicionJugador = Posicion.values()[opcionPosicion - 1];
 					
@@ -164,5 +173,67 @@ public class Main {
         }
     }
     
+   /**
+    * 
+    */
+    private static void modificar() {
+        if (jugadores.isEmpty()) {
+            System.out.println("\nLista de Jugadores vacia");
+        } else {
+            System.out.print("Ingrese el nombre del jugador: ");
+            String nombre = sc.nextLine();
+            System.out.print("Ingrese el apellido del jugador: ");
+            String apellido = sc.nextLine();
 
+            Iterator<Jugador> iterator = jugadores.iterator();
+            boolean encontrado = false;
+            while (iterator.hasNext()) {
+                Jugador jugador = iterator.next();
+                if (jugador.getNombre().equalsIgnoreCase(nombre) && jugador.getApellido().equalsIgnoreCase(apellido)) {
+                    mostrarPosicion();
+                    int opcionPosicion = opcionEnum();
+                    Posicion nuevaPosicion = Posicion.values()[opcionPosicion - 1];
+                    jugador.setPosicion(nuevaPosicion);
+                    System.out.println("\nPosicion modificada correctamente.");
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.println("\nNo se encontro al jugador.");
+            }
+        }
+    }
+    /**
+     * 
+     */
+    private static void eliminar() {
+        System.out.println("\nEliminar Jugador:");
+        if (jugadores.isEmpty()) {
+            System.out.println("No hay jugadores registrados.");
+            return;
+        } else {
+        	System.out.print("Ingrese el nombre del jugador: ");
+            String nombre = sc.nextLine();
+            System.out.print("Ingrese el apellido del jugador: ");
+            String apellido = sc.nextLine();
+
+            Iterator<Jugador> iterator = jugadores.iterator();
+            boolean encontrado = false;
+            while (iterator.hasNext()) {
+                Jugador jugador = iterator.next();
+                if (jugador.getNombre().equalsIgnoreCase(nombre) && jugador.getApellido().equalsIgnoreCase(apellido)) {
+                    iterator.remove();
+                    System.out.println("Jugador eliminado correctamente.");
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.println("\nNo se encontro al jugador.");
+            }
+        }
+        
+
+}
 }
