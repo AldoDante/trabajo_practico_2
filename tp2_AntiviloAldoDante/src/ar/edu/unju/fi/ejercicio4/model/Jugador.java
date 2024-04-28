@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.ejercicio4.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import ar.edu.unju.fi.ejercicio4.constantes.Posicion;
@@ -12,7 +13,7 @@ public class Jugador {
     private String nacionalidad;
     private Double estatura;
     private Double peso;
-    private Posicion posicion;
+    private Posicion posicionJugador;
     
     public Jugador() {
 		// TODO Auto-generated constructor stub
@@ -29,7 +30,7 @@ public class Jugador {
 		this.nacionalidad = nacionalidad;
 		this.estatura = estatura;
 		this.peso = peso;
-		this.posicion = posicion;
+		this.posicionJugador = posicion;
 	}
     
     
@@ -107,13 +108,23 @@ public class Jugador {
 
 
 	public Posicion getPosicion() {
-		return posicion;
+		return posicionJugador;
 	}
 
 
 
 	public void setPosicion(Posicion posicion) {
-		this.posicion = posicion;
+		this.posicionJugador = posicion;
+	}
+
+	@Override
+	public String toString() {
+		
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaFormateada = formatoFecha.format(fechaNac.getTime());
+		return "Jugador [nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaFormateada + ", nacionalidad="
+				+ nacionalidad + ", estatura=" + estatura + ", peso=" + peso + ", posicionJugador=" + posicionJugador
+				+ "]";
 	}
 
 
