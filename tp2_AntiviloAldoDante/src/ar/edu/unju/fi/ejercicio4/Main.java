@@ -114,7 +114,11 @@ public class Main {
     }
     
     /**
-     *     
+     *Metodo para dar de alta un jugador solicita al usuario que ingrese 
+     *varios detalles sobre un jugador utiliza dos metodos, uno para mostrar
+     *la lista de enumerados y otro que controla el ingreso de las opciones 
+     *de la lista de enumerados con su control de exepciones tambien controla
+     *que el ingreso en la altura  y peso sea de numeros
      */
     private static void alta () {
     			System.out.println("\nAlta de Jugador");
@@ -160,7 +164,10 @@ public class Main {
 				}
 			
     }
-    
+    /**
+     * Metodo para mostrar la lista de jugadores
+     * si no los hubiera muestra un mensaje de aviso
+     */
     private static void mostrar() {
         
         if (jugadores.isEmpty()) {
@@ -174,7 +181,14 @@ public class Main {
     }
     
    /**
-    * 
+    * Nodifica la posición de un jugador en la lista de jugadores Comprueba 
+    * si la lista de jugadores esta vacia, si lo esta, muestra un mensaje 
+    * indicando que la lista está vacía y sale del metodo Si la lista no esta 
+    * vacia, solicita al usuario que ingrese el nombre y apellido del jugador 
+    * que desea modificar, recorre la lista comparando nombre y apellido 
+    * Si encuentra un jugador con el nombre y apellido proporcionados, 
+    * solicita al usuario que elija una nueva posición para el jugador y lo
+    * actualiza 
     */
     private static void modificar() {
         if (jugadores.isEmpty()) {
@@ -205,7 +219,11 @@ public class Main {
         }
     }
     /**
-     * 
+     * Se encarga de eliminar un jugador en base a su nombre y apellido
+     * si la lista esta vacia lo comunica, si el nombre  y apellido no 
+     * concuerdan tambien informa al usuario. Si encuentra al jugador
+     *  lo elimina de la lista usando el iterador y muestra un mensaje 
+     *  confirmando que el jugador ha sido eliminado
      */
     private static void eliminar() {
         System.out.println("\nEliminar Jugador:");
