@@ -1,4 +1,4 @@
-package ar.edu.unju.fi.ejercicio1.model;
+package ar.edu.unju.fi.ejercicio5.model;
 
 public class Producto {
 			
@@ -7,6 +7,7 @@ public class Producto {
     private Double precioUn;
     private OrigenFabricacion origenF;
     private Categoria categoria;
+    private boolean estado;
     
 	public enum OrigenFabricacion{
 		ARGENTINA, CHINA, BRASIL, URUGUAY
@@ -16,13 +17,15 @@ public class Producto {
 		TELEFONIA, INFORMATICA, ELECTROHOGAR, HERRAMIENTAS
 	}
 
-	public Producto(int codigo, String descripcion, Double precioUn, OrigenFabricacion origenF, Categoria categoria) {
+	public Producto(int codigo, String descripcion, Double precioUn, OrigenFabricacion origenF, Categoria categoria,
+			boolean estado) {
 		super();
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.precioUn = precioUn;
 		this.origenF = origenF;
 		this.categoria = categoria;
+		this.estado = estado;
 	}
 
 	public int getCodigo() {
@@ -65,11 +68,19 @@ public class Producto {
 		this.categoria = categoria;
 	}
 
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
 	@Override
 	public String toString() {
 		return "Producto [codigo=" + codigo + ", descripcion=" + descripcion + ", precioUn=" + precioUn + ", origenF="
-				+ origenF + ", categoria=" + categoria + "]";
+				+ origenF + ", categoria=" + categoria + ", estado=" + estado + "]";
 	}
-	
+
 	
 }
