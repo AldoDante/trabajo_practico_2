@@ -1,18 +1,22 @@
 package ar.edu.unju.fi.ejercicio7;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 import ar.edu.unju.fi.ejercicio7.model.Producto;
 
 public class Main {
 	
-	
+	private static Scanner sc = new Scanner(System.in);
+    private static List<Producto> productos;
 	
     public static void main(String[] args) {
     	
-    	List<Producto> productos = precargarProductos();
-    	
+    	productos = precargarProductos();
+    	System.out.println(productos);
+    	mostrarMenu();
     	
     	
     	}
@@ -38,5 +42,59 @@ public class Main {
         
         return productos;
     }
+    
+    private static void mostrarMenu() {
+        boolean continuar = true;
+        
+        while (continuar) {
+            try {
+            	System.out.println("=== Menú ===");
+                System.out.println("1. Mostrar productos");
+                System.out.println("2. Mostrar productos faltantes");
+                System.out.println("3. Incrementar precios");
+                System.out.println("4. Mostrar productos de la categoria Electrohogar");
+                System.out.println("5. Ordenar productos por precio descendente");
+                System.out.println("6. Mostrar nombres de productos en mayúsculas");
+                System.out.println("7. Salir");
+                System.out.print("Ingrese su opción: ");
+                
+                int opcion = sc.nextInt();
+                sc.nextLine();
+                
+                switch (opcion) {
+                    case 1:
+                        //productos();
+                        break;
+                    case 2:
+                        //faltantes();
+                        break;
+                    case 3:
+                        //incrementarPrecios();
+                        break;
+                    case 4:
+                        //categoriaElectrohogar();
+                        break;
+                    case 5:
+                        //descendente();
+                        break;
+                    case 6:
+                        //mayusculas();
+                        break;
+                    case 7:
+                        continuar = false;
+                        System.out.println("Chaito!...");
+                        break;
+                    default:
+                        System.out.println("Opcion invalida, ingrese un numero valido.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: ingrese un número valido.");
+                sc.nextLine();
+            }
+        }
+    }
+    
+    
 }
     
