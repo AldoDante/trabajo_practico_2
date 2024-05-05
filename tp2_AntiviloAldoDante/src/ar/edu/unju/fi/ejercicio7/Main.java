@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import ar.edu.unju.fi.ejercicio7.model.Producto;
 
@@ -15,9 +18,9 @@ public class Main {
     public static void main(String[] args) {
     	
     	productos = precargarProductos();
-    	System.out.println(productos);
-    	mostrarMenu();
     	
+    	mostrarMenu();
+    	sc.close();
     	
     	}
     
@@ -42,13 +45,15 @@ public class Main {
         
         return productos;
     }
-    
+    /**
+     * 
+     */
     private static void mostrarMenu() {
         boolean continuar = true;
         
         while (continuar) {
             try {
-            	System.out.println("=== Menú ===");
+            	System.out.println("\n=== Menú ===\n");
                 System.out.println("1. Mostrar productos");
                 System.out.println("2. Mostrar productos faltantes");
                 System.out.println("3. Incrementar precios");
@@ -56,17 +61,17 @@ public class Main {
                 System.out.println("5. Ordenar productos por precio descendente");
                 System.out.println("6. Mostrar nombres de productos en mayúsculas");
                 System.out.println("7. Salir");
-                System.out.print("Ingrese su opción: ");
+                System.out.print("\nIngrese su opción:\n ");
                 
                 int opcion = sc.nextInt();
                 sc.nextLine();
                 
                 switch (opcion) {
                     case 1:
-                        //productos();
+                        productos();
                         break;
                     case 2:
-                        //faltantes();
+                        faltantes();
                         break;
                     case 3:
                         //incrementarPrecios();
@@ -85,14 +90,37 @@ public class Main {
                         System.out.println("Chaito!...");
                         break;
                     default:
-                        System.out.println("Opcion invalida, ingrese un numero valido.");
+                        System.out.println("Opcion invalida, ingrese un numero valido");
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: ingrese un número valido.");
+                System.out.println("Error: ingrese un número valido");
                 sc.nextLine();
             }
         }
+    }
+    /**
+     * 
+     */
+    private static void productos() {
+    	 System.out.println("\nProductos en Stock\n");
+        Consumer<Producto> mostrarProductosConsumer = p -> {
+            if (p.isEstado()) {
+                System.out.println(p);
+            }
+        };
+        productos.forEach(mostrarProductosConsumer);
+    }
+    
+    private static void faltantes() {
+    	System.out.println("\nProductos Faltantes\n");
+        Predicate<Producto> productosFaltantesPredicate = p -> !p.isEstado();
+        List<Producto> productosFaltantes = productos.stream()
+                .filter(productosFaltantesPredicate)
+                .collect(Collectors.toList());
+
+        Consumer<Producto> mostrarProductosConsumer = p -> System.out.println(p);
+        productosFaltantes.forEach(mostrarProductosConsumer);
     }
     
     
