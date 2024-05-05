@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -74,7 +75,7 @@ public class Main {
                         faltantes();
                         break;
                     case 3:
-                        //incrementarPrecios();
+                        incrementarPrecios();
                         break;
                     case 4:
                         //categoriaElectrohogar();
@@ -121,6 +122,25 @@ public class Main {
 
         Consumer<Producto> mostrarProductosConsumer = p -> System.out.println(p);
         productosFaltantes.forEach(mostrarProductosConsumer);
+    }
+    
+    /**
+     * 
+     */
+    private static void incrementarPrecios() {
+        Function<Producto, Producto> incrementarPrecioFunction = p -> {
+            double nuevoPrecio = p.getPrecioUn() * 1.20;
+            p.setPrecioUn(nuevoPrecio);
+            return p;
+        };
+
+        List<Producto> productosIncrementados = productos.stream()
+                .map(incrementarPrecioFunction)
+                .collect(Collectors.toList());
+
+        System.out.println("\nPrecios incrementados en 20%:\n");
+        Consumer<Producto> mostrarProductosConsumer = p -> System.out.println(p);
+        productosIncrementados.forEach(mostrarProductosConsumer);
     }
     
     
